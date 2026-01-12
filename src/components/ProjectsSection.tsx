@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { ExternalLink, ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const projects = [
   {
@@ -179,7 +180,9 @@ export function ProjectsSection() {
                   <p className="text-sm mb-4">UI/UX Designer — UI/UX Design, Website Layout & Structure, Color Palette & Typography, Responsive Design Concept, Design for Home, Car Listing, Booking, and Contact pages</p>
 
                   <div className="flex gap-3">
-                    <a href="#" className="btn btn-primary inline-flex items-center gap-2 px-4 py-2 rounded-md bg-gradient-to-r from-amber-500 to-orange-600 text-white">View Case Study <ExternalLink className="w-4 h-4" /></a>
+                    <Link to="/projects/nfc-dubai" className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-gradient-to-r from-amber-500 to-orange-600 text-white">
+                      View Case Study <ExternalLink className="w-4 h-4" />
+                    </Link>
                     <button onClick={() => { contactAbout(selectedProject); setIsProjectDialogOpen(false); }} className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-border">Contact About Project</button>
                   </div>
                 </div>
