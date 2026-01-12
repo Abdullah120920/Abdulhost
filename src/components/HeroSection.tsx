@@ -6,8 +6,8 @@ import { ContactFormDialog } from "./ContactFormDialog";
 
 export function HeroSection() {
   const [isContactOpen, setIsContactOpen] = useState(false);
-  // Resolve resume PDF path. Place `final.pdf` inside `src/resume/final.pdf`.
-  const resumeUrl = new URL("../resume/final.pdf", import.meta.url).href;
+  // Use public final.pdf so it's served at the base URL (works with GitHub Pages)
+  const resumeUrl = `${import.meta.env.BASE_URL}final.pdf`;
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
