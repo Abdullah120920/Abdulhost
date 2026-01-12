@@ -6,6 +6,8 @@ import { ContactFormDialog } from "./ContactFormDialog";
 
 export function HeroSection() {
   const [isContactOpen, setIsContactOpen] = useState(false);
+  // Resolve resume PDF path. Place `final.pdf` inside `src/resume/final.pdf`.
+  const resumeUrl = new URL("../resume/final.pdf", import.meta.url).href;
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -64,10 +66,14 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            <Button variant="gradient" size="xl">
-              <Download className="mr-2" />
-              Download Resume
-            </Button>
+            {/* Wrap button in an anchor to trigger download of the pdf resolved by Vite */}
+            <a href={resumeUrl} download className="no-underline">
+              <Button variant="gradient" size="xl">
+                <Download className="mr-2" />
+                Download Resume
+              </Button>
+            </a>
+
             <Button variant="gradient-outline" size="xl" onClick={() => setIsContactOpen(true)}>
               <Mail className="mr-2" />
               Contact Me
