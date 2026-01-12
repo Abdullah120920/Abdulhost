@@ -58,7 +58,14 @@ export function ContactFormDialog({ open, onOpenChange }: ContactFormDialogProps
         setFormData({ name: "", email: "", subject: "", message: "", inquiry: "Hire" });
         onOpenChange(false);
       } else {
-        toast.error(data.message || "Failed to send message. Please try again later.");
+        // Provide actionable guidance for 403 errors (common when access_key is invalid or restricted)
+        if (res.status === 403) {
+          toast.error("403 Forbidden: Web3Forms access key rejected. Check your access key status and allowed origins in the Web3Forms dashboard.");
+          console.error("Web3Forms 403 response:", data);
+        } else {
+          toast.error(data.message || "Failed to send message. Please try again later.");
+          console.error("Web3Forms error response:", data);
+        }
       }
     } catch (err) {
       console.error(err);
