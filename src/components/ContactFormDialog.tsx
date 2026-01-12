@@ -15,9 +15,11 @@ import { toast } from "sonner";
 interface ContactFormDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  defaultSubject?: string;
+  defaultInquiry?: string;
 }
 
-export function ContactFormDialog({ open, onOpenChange }: ContactFormDialogProps) {
+export function ContactFormDialog({ open, onOpenChange, defaultSubject, defaultInquiry }: ContactFormDialogProps) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -25,6 +27,17 @@ export function ContactFormDialog({ open, onOpenChange }: ContactFormDialogProps
     message: "",
     inquiry: "Hire",
   });
+
+  // Apply defaults when dialog opens
+  useEffect(() => {
+    if (open) {
+      setFormData((prev) => ({
+        ...prev,
+        subject: defaultSubject || prev.subject,
+        inquiry: defaultInquiry || prev.inquiry,
+      }));
+    }
+  }, [open, defaultSubject, defaultInquiry]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Web3Forms access key and recipient email. Prefer environment variables, fallback to provided values.
