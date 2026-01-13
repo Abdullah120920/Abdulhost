@@ -1,7 +1,6 @@
 import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import { ExternalLink, ArrowUpRight } from "lucide-react";
-import { Link } from "react-router-dom";
 
 const projects = [
   {
@@ -49,21 +48,6 @@ const projects = [
 export function ProjectsSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
-  const [isProjectDialogOpen, setIsProjectDialogOpen] = useState(false);
-  const [isContactOpen, setIsContactOpen] = useState(false);
-  const [contactDefaults, setContactDefaults] = useState<{ subject?: string; inquiry?: string } | null>(null);
-
-  function openProject(project: typeof projects[0]) {
-    setSelectedProject(project);
-    setIsProjectDialogOpen(true);
-  }
-
-  function contactAbout(project: typeof projects[0]) {
-    setContactDefaults({ subject: `${project.title} - ${project.category}`, inquiry: "Hire" });
-    setIsContactOpen(true);
-  }
 
   return (
     <section id="projects" className="section-padding relative" ref={ref}>
@@ -131,68 +115,16 @@ export function ProjectsSection() {
                     <span className="text-xs text-muted-foreground">
                       {project.role}
                     </span>
-                    <button
-                      onClick={() => openProject(project)}
-                      className="text-purple-400 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all"
-                      aria-label={`View details for ${project.title}`}
-                    >
+                    <span className="text-purple-400 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
                       View Details
                       <ArrowUpRight className="w-4 h-4" />
-                    </button>
+                    </span>
                   </div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
-
-        {/* Project detail dialog */}
-        <Dialog open={isProjectDialogOpen} onOpenChange={setIsProjectDialogOpen}>
-          <DialogContent className="max-w-3xl">
-            {selectedProject && (
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <img src={`${import.meta.env.BASE_URL}projects/nfc-dubai.svg`} alt={selectedProject.title} className="w-full rounded-lg shadow-md" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-2">{selectedProject.title}</h3>
-                  <p className="text-sm text-purple-400 mb-2">{selectedProject.category}</p>
-
-                  <p className="text-muted-foreground mb-4">{selectedProject.description}</p>
-
-                  <h4 className="font-semibold mb-2">Project Overview</h4>
-                  <p className="text-sm mb-4">NFC Luxury Car Rental is a premium car rental service based in Dubai, offering luxury, sports, and exotic cars for tourists and residents. The goal of this project was to design a modern, elegant, and user-friendly website that reflects the brand's luxury identity and improves the online booking experience.</p>
-
-                  <h4 className="font-semibold mb-2">Design Objective</h4>
-                  <p className="text-sm mb-4">To build a centralized, secure, and user-friendly system that simplifies the car rental process while highlighting premium vehicle collections.</p>
-
-                  <h4 className="font-semibold mb-2">Key Features</h4>
-                  <ul className="list-disc list-inside mb-4 text-sm space-y-1">
-                    <li>Clean and modern luxury UI</li>
-                    <li>High-quality car showcase sections</li>
-                    <li>Easy-to-use booking flow</li>
-                    <li>Responsive design for mobile, tablet, and desktop</li>
-                    <li>Clear contact and location information</li>
-                    <li>Strong call-to-action buttons</li>
-                  </ul>
-
-                  <h4 className="font-semibold mb-2">My Role</h4>
-                  <p className="text-sm mb-4">UI/UX Designer — UI/UX Design, Website Layout & Structure, Color Palette & Typography, Responsive Design Concept, Design for Home, Car Listing, Booking, and Contact pages</p>
-
-                  <div className="flex gap-3">
-                    <Link to="/projects/nfc-dubai" className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-gradient-to-r from-amber-500 to-orange-600 text-white">
-                      View Case Study <ExternalLink className="w-4 h-4" />
-                    </Link>
-                    <button onClick={() => { contactAbout(selectedProject); setIsProjectDialogOpen(false); }} className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-border">Contact About Project</button>
-                  </div>
-                </div>
-              </div>
-            )}
-          </DialogContent>
-        </Dialog>
-
-        {/* Contact dialog triggered from project */}
-        <ContactFormDialog open={isContactOpen} onOpenChange={setIsContactOpen} defaultSubject={contactDefaults?.subject} defaultInquiry={contactDefaults?.inquiry} />
       </div>
     </section>
   );

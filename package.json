@@ -17,7 +17,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "serve:dist": "serve -s dist -l 5000",
-    "test:web3forms": "node scripts/test-web3forms.cjs"
+    "test:web3forms": "node scripts/test-web3forms.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
