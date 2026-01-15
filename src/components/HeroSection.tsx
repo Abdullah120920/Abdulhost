@@ -48,7 +48,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground mb-6"
           >
-            UI/UX Designer
+            UI/Ux Designer & Developer
           </motion.h2>
 
           <motion.p
